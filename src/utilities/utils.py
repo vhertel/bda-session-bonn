@@ -1,11 +1,9 @@
 import csv
 import json
-import random
 from enum import Enum
 from pathlib import Path
 
 import matplotlib.pyplot as plt
-import numpy as np
 import torch
 import torch.distributed as dist
 
@@ -184,28 +182,6 @@ def save_logs_to_csv(logs, filename):
         # Write the logs for each epoch
         for log in logs:
             writer.writerow(log)
-
-
-def set_seed(seed):
-    """
-    Set random number generator seeds for a worker in multi-process data loading algorithm.
-
-    Args:
-        seed (int): The ID of the worker.
-    """
-    # set seed for deterministic pseudo-random processes
-    # Source: https://pytorch.org/docs/stable/notes/randomness.html
-    # set Python seed
-    random.seed(seed)
-    # set numpy seed
-    np.random.seed(seed)
-    # set PyTorch seed
-    torch.manual_seed(seed)
-    # disable benchmarking feature for cuDNN to deterministically select an algorithm,
-    # possibly at the cost of reduced performance
-    torch.backends.cudnn.benchmark = False
-    # set whether PyTorch operations must use "deterministic" algorithms
-    # torch.use_deterministic_algorithms(True)
 
 
 def plot(y_arr, pred_arr, path):

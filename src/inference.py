@@ -7,7 +7,7 @@ from sklearn.metrics import f1_score
 from torch.utils.data import DataLoader
 
 from src.utilities.DatasetFromStruct import DatasetFromStruct
-from src.utilities.utils import AverageMeter, ProgressMeter, Summary, set_seed, plot
+from src.utilities.utils import AverageMeter, ProgressMeter, Summary, plot
 
 # print setup
 print(f'\nUsing PyTorch version {torch.__version__}.')
@@ -86,13 +86,6 @@ def inference(loader, model):
 
 def main():
     """Main function to start process."""
-
-    # ------------------------------------------------------------------------------------------------------------------
-    #   INITIALIZATION
-    # ------------------------------------------------------------------------------------------------------------------
-
-    # set seed for deterministic pseudo-random processes
-    set_seed(11)
 
     # ------------------------------------------------------------------------------------------------------------------
     #   MODEL

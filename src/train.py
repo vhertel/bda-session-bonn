@@ -9,7 +9,7 @@ from sklearn.metrics import f1_score
 from torch.utils.data import DataLoader
 
 from src.utilities.DatasetFromStruct import DatasetFromStruct
-from src.utilities.utils import AverageMeter, ProgressMeter, Summary, save_logs_to_csv, set_seed, plot_logs
+from src.utilities.utils import AverageMeter, ProgressMeter, Summary, save_logs_to_csv, plot_logs
 
 # print setup
 print(f'\nUsing PyTorch version {torch.__version__}.')
@@ -123,13 +123,6 @@ def epoch_eval(mode, model, data_loader, loss_func, epoch, optimizer=None):
 
 def main():
     """Main function to start process."""
-
-    # ------------------------------------------------------------------------------------------------------------------
-    #   INITIALIZATION
-    # ------------------------------------------------------------------------------------------------------------------
-
-    # set seed for deterministic pseudo-random processes
-    set_seed(11)
 
     # ------------------------------------------------------------------------------------------------------------------
     #   MODEL
