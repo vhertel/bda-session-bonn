@@ -3,6 +3,7 @@ import json
 from enum import Enum
 from pathlib import Path
 
+import matplotlib.colors as mcolors
 import matplotlib.pyplot as plt
 import torch
 import torch.distributed as dist
@@ -184,19 +185,23 @@ def save_logs_to_csv(logs, filename):
             writer.writerow(log)
 
 
-def plot(y_arr, pred_arr, path):
-    # configure plot
-    fig, axes = plt.subplots(1, 2, figsize=(10, 20))
-    # tile index in batch
-    tile_index = 5
-    # plot
-    axes[0].imshow(y_arr[tile_index])
-    axes[0].set_title('Target')
-    axes[1].imshow(pred_arr[tile_index])
-    axes[1].set_title('Output')
-    # save figure
-    plt.savefig(path, bbox_inches='tight', dpi=300)
-    plt.close()
+def plot(y_arr, pred_arr, batch):
+    # Create a colormap with custom colors for each pixel value
+    cmap_colors = ['black', 'limegreen', 'orange', 'mediumslateblue', 'mediumvioletred']
+    cmap = mcolors.ListedColormap(cmap_colors)
+
+    # plot each scene/tile in batch
+    for i in range(y_arr.shape[0]):
+        # configure plot
+        fig, axes = plt.subplots(1, 2, figsize=(10, 20))
+        # plot
+        axes[0].imshow(y_arr[i], cmap=cmap)
+        axes[0].set_title('Target')
+        axes[1].imshow(pred_arr[i], cmap=cmap)
+        axes[1].set_title('Output')
+        # save figure
+        plt.savefig(Path.cwd().parent.joinpath('res', 'output', f'batch_{batch}_{i}.png'), bbox_inches='tight', dpi=300)
+        plt.close()
 
 
 def plot_logs(df, path):

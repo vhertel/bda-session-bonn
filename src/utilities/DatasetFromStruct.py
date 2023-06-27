@@ -66,8 +66,9 @@ class DatasetFromStruct(Dataset):
         cls_mask = np.where(cls_mask == 5, 0, cls_mask)
 
         # transpose RGB to (x, y, bands)
-        pre_img = np.transpose(pre_img, [1, 2, 0])
-        post_img = np.transpose(post_img, [1, 2, 0])
+        if pre_img.shape[0] == 3:
+            pre_img = np.transpose(pre_img, [1, 2, 0])
+            post_img = np.transpose(post_img, [1, 2, 0])
 
         # normalize data
         if self.normalize is True:

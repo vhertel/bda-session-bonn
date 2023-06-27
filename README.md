@@ -77,7 +77,8 @@ inference with the re-trained model.
 
 For doing so, follow the instructions:
 
-1. Download the xBD data subset for training and inference (link expires on 26/07/2023): [link](https://dlrmax.dlr.de/get/9ed85764-1491-5e81-9352-f0ff6e835d62/)
+1. Download the [xBD data subset](https://dlrmax.dlr.de/get/be2d2cf5-7e7e-5e11-85fb-f632f5db20d3/) for training and
+   inference (link expires on 26/07/2023).
 2. Open `inference.py`, adjust the *CONFIG* parameters and run the script. Note the macro and micro F1 scores after the
    process. Note: if memory errors occur, reduce the batch size.
 3. Open `train.py`, adjust the *CONFIG* parameters and run the script. During the training process, model weights are

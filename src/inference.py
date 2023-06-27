@@ -14,8 +14,8 @@ print(f'\nUsing PyTorch version {torch.__version__}.')
 device = torch.device('cuda' if torch.cuda.is_available() else 'cpu')
 print(f'Using device: {device}.')
 
-CONFIG = {'batch_size': 32,
-          'test_dir': 'D:/Bonn/test',
+CONFIG = {'batch_size': 16,
+          'test_dir': 'D:/xBD_Bonn/test',
           'model': 'res/models/pre_trained.pth.tar'}
 
 
@@ -75,7 +75,7 @@ def inference(loader, model):
 
             # plot example tile from batch
             Path.cwd().parent.joinpath('res', 'output').mkdir(exist_ok=True)
-            plot(y_arr, pred_arr, Path.cwd().parent.joinpath('res', 'output', f'batch_{batch}.png'))
+            plot(y_arr, pred_arr, batch)
 
             # print status update every batch
             if batch % 1 == 0:

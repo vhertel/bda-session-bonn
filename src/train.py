@@ -19,8 +19,8 @@ print(f'Using device: {device}.')
 CONFIG = {'epochs': 10,
           'learning_rate': 0.001,
           'batch_size': 32,
-          'train_dir': 'D:/Bonn/train',
-          'val_dir': 'D:/Bonn/val',
+          'train_dir': 'D:/xBD_Bonn/train',
+          'val_dir': 'D:/xBD_Bonn/val',
           'model': 'res/models/pre_trained.pth.tar'}
 
 
