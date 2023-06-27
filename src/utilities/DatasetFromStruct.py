@@ -55,8 +55,6 @@ class DatasetFromStruct(Dataset):
 
     def __getitem__(self, i):
 
-        # get image name
-        image_name = self.img_pre_paths[i].stem.replace('_pre_disaster', '')
         # open images as numpy arrays with shape (bands, x, y) for RGB and (x, y) for mask
         # dtype float32 for raster -> FloatTensor as expected by loss function
         pre_img = tifffile.imread(str(self.img_pre_paths[i])).astype(np.float32) / 255.0
@@ -64,7 +62,6 @@ class DatasetFromStruct(Dataset):
         # dtype int64 for masks -> LongTensor as expected by loss function
         cls_mask = tifffile.imread(str(self.cls_paths[i])).astype(np.int64)
 
-        # TODO
         # replace non-classified pixels with background
         cls_mask = np.where(cls_mask == 5, 0, cls_mask)
 

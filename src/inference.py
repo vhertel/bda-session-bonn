@@ -16,7 +16,7 @@ print(f'Using device: {device}.')
 
 CONFIG = {'batch_size': 32,
           'test_dir': 'D:/Bonn/test',
-          'model': '8-0.7514-0.0095.pth.tar'}
+          'model': 'res/models/pre_trained.pth.tar'}
 
 
 def inference(loader, model):
@@ -74,6 +74,7 @@ def inference(loader, model):
             start = time.time()
 
             # plot example tile from batch
+            Path.cwd().parent.joinpath('res', 'output').mkdir(exist_ok=True)
             plot(y_arr, pred_arr, Path.cwd().parent.joinpath('res', 'output', f'batch_{batch}.png'))
 
             # print status update every batch
@@ -91,7 +92,7 @@ def main():
     #   MODEL
     # ------------------------------------------------------------------------------------------------------------------
     # load model checkpoint
-    checkpoint = torch.load(Path.cwd().parent.joinpath('res', 'models', CONFIG['model']), map_location=device)
+    checkpoint = torch.load(Path.cwd().parent.joinpath(CONFIG['model']), map_location=device)
     model = smp.Unet(in_channels=checkpoint['in_channels'], classes=checkpoint['classes']).to(device=device)
     # load model to continue with inference
     model.load_state_dict(checkpoint['state_dict'])

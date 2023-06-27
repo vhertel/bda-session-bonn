@@ -17,11 +17,11 @@ device = torch.device('cuda' if torch.cuda.is_available() else 'cpu')
 print(f'Using device: {device}.')
 
 CONFIG = {'epochs': 10,
-          'learning_rate': 0.0005,
+          'learning_rate': 0.001,
           'batch_size': 32,
           'train_dir': 'D:/Bonn/train',
           'val_dir': 'D:/Bonn/val',
-          'model': 'pre_trained.pth.tar'}
+          'model': 'res/models/pre_trained.pth.tar'}
 
 
 def epoch_eval(mode, model, data_loader, loss_func, epoch, optimizer=None):
@@ -128,7 +128,7 @@ def main():
     #   MODEL
     # ------------------------------------------------------------------------------------------------------------------
     # load model checkpoint
-    checkpoint_dir = Path.cwd().parent.joinpath('res', 'models', CONFIG['model'])
+    checkpoint_dir = Path.cwd().parent.joinpath(CONFIG['model'])
     checkpoint = torch.load(checkpoint_dir, map_location=device)
     model = smp.Unet(in_channels=checkpoint['in_channels'], classes=checkpoint['classes']).to(device=device)
     # load model to continue with inference
@@ -138,7 +138,6 @@ def main():
     # ------------------------------------------------------------------------------------------------------------------
     #   DATA
     # ------------------------------------------------------------------------------------------------------------------
-
     # get Path object to training and validation data
     train_dir = Path(CONFIG['train_dir'])
     val_dir = Path(CONFIG['val_dir'])
@@ -158,7 +157,6 @@ def main():
     # ------------------------------------------------------------------------------------------------------------------
     #   TRAINING
     # ------------------------------------------------------------------------------------------------------------------
-
     # set optimizer
     optimizer = torch.optim.Adam(model.parameters(), lr=CONFIG['learning_rate'])
     # loss functions for semantic segmentation
@@ -188,6 +186,7 @@ def main():
                     }, Path.cwd().parent.joinpath('res', 'models',
                                                   f'{epoch}-{round(f1_macro, 4)}-{round(loss, 4)}.pth.tar'))
     # save log
+    Path.cwd().parent.joinpath('res', 'logs').mkdir(exist_ok=True)
     save_logs_to_csv(logs, Path.cwd().parent.joinpath('res', 'logs', 'logs.csv'))
     plot_logs(pd.DataFrame(logs, columns=['Epoch', 'Loss', 'F1 macro', 'F1 micro']),
               Path.cwd().parent.joinpath('res', 'logs', 'logs.png'))
