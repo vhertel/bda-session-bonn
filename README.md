@@ -6,7 +6,7 @@ performs rapid building damage assessment. Deep learning techniques are utilized
 imagery and predict the level of damage to buildings after natural disasters or other events. After training, the model
 can be used to analyze large-scale disaster areas and help prioritize rescue and recovery efforts. Additional materials
 on the workflow and further background information can be found in the
-dedicated [presentation](https://github.com/vhertel/bda-session-bonn/tree/main/res/background.pdf).
+dedicated presentation ([res/background.pdf](https://github.com/vhertel/bda-session-bonn/tree/main/res/background.pdf)).
 
 ## Table of Contents
 
