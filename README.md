@@ -4,7 +4,9 @@ This repository is part of a lecture series at the University of Bonn and is des
 learning methods in the remote sensing domain. It contains code and resources for the development of an AI model that
 performs rapid building damage assessment. Deep learning techniques are utilized to analyze satellite or aerial
 imagery and predict the level of damage to buildings after natural disasters or other events. After training, the model
-can be used to analyze large-scale disaster areas and help prioritize rescue and recovery efforts.
+can be used to analyze large-scale disaster areas and help prioritize rescue and recovery efforts. Additional materials
+on the workflow and further background information can be found in the
+dedicated [presentation](https://github.com/vhertel/bda-session-bonn/tree/main/res/background.pdf).
 
 ## Table of Contents
 
@@ -40,7 +42,7 @@ The following software packages or equivalents have to be installed.
 
 ### Repository
 
-After successful installation of the softwares above, follow the instructions to download and set up the repository.
+After successful installation of the software above, follow the instructions to download and set up the repository.
 
 1. Clone the repository using the `git CMD` application:
 
@@ -57,7 +59,10 @@ conda env create -f environment.yml
 ```
 
 3. Open the project and select the conda environment `bda` as interpreter. In PyCharm, this can be done via `File ->
-   Settings... -> Project: bda-session-bonn -> Project Interpreter -> Add Interpreter -> Conda Environment`.
+   Settings... -> Project: bda-session-bonn -> Project Interpreter -> Add Interpreter -> Add Local Interpreter... -> Conda Environment`
+   . Click on the `...` button next to the `Interpreter` field to open the `Select Python Interpreter` dialog. Select
+   the `python.exe` of the desired environment. PyCharm will now use the selected Conda environment as the interpreter
+   for your project.
 
 ## Dataset
 

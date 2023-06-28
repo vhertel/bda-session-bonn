@@ -73,7 +73,7 @@ def inference(loader, model):
             # reset start time next batch
             start = time.time()
 
-            # plot example tile from batch
+            # plot tiles
             Path.cwd().parent.joinpath('res', 'output').mkdir(exist_ok=True)
             plot(y_arr, pred_arr, batch)
 
@@ -92,21 +92,23 @@ def main():
     #   MODEL
     # ------------------------------------------------------------------------------------------------------------------
     # load model checkpoint
-    checkpoint = torch.load(Path.cwd().parent.joinpath(CONFIG['model']), map_location=device)
+    checkpoint_dir = Path.cwd().parent.joinpath(CONFIG['model'])
+    checkpoint = torch.load(checkpoint_dir, map_location=device)
     model = smp.Unet(in_channels=checkpoint['in_channels'], classes=checkpoint['classes']).to(device=device)
     # load model to continue with inference
     model.load_state_dict(checkpoint['state_dict'])
+    print(f'\nLoaded model from {str(checkpoint_dir)}')
 
     # ------------------------------------------------------------------------------------------------------------------
     #   DATA
     # ------------------------------------------------------------------------------------------------------------------
-
     # get Path object to test data
     test_dir = Path(CONFIG['test_dir'])
     # load average mean and standard deviation of dataset
     data_statistics = checkpoint['statistics']
 
     # create DatasetFromStruct instance (torch.utils.data.Dataset) for training and validation data
+    # normalize features to be on a similar scale to improve performance and training stability
     test_set = DatasetFromStruct(test_dir, data_statistics, normalize=True)
     # combine datasets and a sampler to provide an iterable over the given dataset
     test_loader = DataLoader(test_set, batch_size=CONFIG['batch_size'], shuffle=False, num_workers=0)
@@ -117,7 +119,6 @@ def main():
     # ------------------------------------------------------------------------------------------------------------------
     #   INFERENCE
     # ------------------------------------------------------------------------------------------------------------------
-
     inference(test_loader, model)
 
 
