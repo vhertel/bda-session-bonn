@@ -5,8 +5,8 @@ learning methods in the remote sensing domain. It contains code and resources fo
 performs rapid building damage assessment. Deep learning techniques are utilized to analyze satellite or aerial
 imagery and predict the level of damage to buildings after natural disasters or other events. After training, the model
 can be used to analyze large-scale disaster areas and help prioritize rescue and recovery efforts. Additional materials
-on the workflow and further background information can be found in the
-dedicated presentation ([res/background.pdf](https://github.com/vhertel/bda-session-bonn/tree/main/res/background.pdf)).
+on the workflow and further background information can be found under
+[res/background.pdf](https://github.com/vhertel/bda-session-bonn/tree/main/res/background.pdf).
 
 ## Table of Contents
 
