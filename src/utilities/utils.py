@@ -171,7 +171,8 @@ def save_logs_to_csv(logs, filename):
         filename    (str or Path):  Name or Path object representing the CSV file to save the logs
 
     """
-    header = ['Epoch', 'Loss', 'F1 Macro', 'F1 Micro']
+    header = ['Epoch', 'Loss Training', 'F1 Macro Training', 'F1 Weighted Training',
+              'Loss Validation', 'F1 Macro Validation', 'F1 Weighted Validation']
     # Convert Path object to string if necessary
     if isinstance(filename, Path):
         filename = str(filename)
@@ -185,46 +186,25 @@ def save_logs_to_csv(logs, filename):
             writer.writerow(log)
 
 
-def plot(y_arr, pred_arr, batch):
+def plot(y_arr, pred_arr, paths):
     # Create a colormap with custom colors for each pixel value
-    cmap_colors = ['black', 'limegreen', 'orange', 'mediumslateblue', 'mediumvioletred']
-    cmap = mcolors.ListedColormap(cmap_colors)
+    colors = ['#000000', '#92d050', '#ffff00', '#ffc71a', '#ff1a1a']
+    # create a colormap with custom colors for each pixel value
+    boundaries = list(range(len(colors) + 1))
+    cmap = mcolors.ListedColormap(colors)
+    norm = mcolors.BoundaryNorm(boundaries, cmap.N, clip=True)
 
     # plot each scene/tile in batch
-    for i in range(y_arr.shape[0]):
+    for i, path in enumerate(paths):
         # configure plot
-        fig, axes = plt.subplots(1, 2, figsize=(10, 20))
+        fig, axes = plt.subplots(1, 2, figsize=(6, 3))
         # plot
-        axes[0].imshow(y_arr[i], cmap=cmap)
+        axes[0].imshow(y_arr[i], cmap=cmap, norm=norm)
         axes[0].set_title('Target')
-        axes[1].imshow(pred_arr[i], cmap=cmap)
+        axes[0].axis('off')
+        axes[1].imshow(pred_arr[i], cmap=cmap, norm=norm)
         axes[1].set_title('Output')
+        axes[1].axis('off')
         # save figure
-        plt.savefig(Path.cwd().parent.joinpath('res', 'output', f'batch_{batch}_{i}.png'), bbox_inches='tight', dpi=300)
+        plt.savefig(Path.cwd().parent.joinpath('res', 'output', f'{Path(path).stem}.png'), bbox_inches='tight', dpi=600)
         plt.close()
-
-
-def plot_logs(df, path):
-    fig, axes = plt.subplots(nrows=3, ncols=1, figsize=(10, 10), sharex=True)
-
-    # Subplot 1
-    axes[0].plot(df.index + 1, df['Loss'])
-    axes[0].set_ylabel('Loss')
-    axes[0].xaxis.set_major_locator(plt.MaxNLocator(integer=True))
-
-    # Subplot 2
-    axes[1].plot(df.index + 1, df['F1 macro'])
-    axes[1].set_ylabel('F1 macro')
-    axes[1].xaxis.set_major_locator(plt.MaxNLocator(integer=True))
-    axes[1].set_ylim(0, 1)
-
-    # Subplot 3
-    axes[2].plot(df.index + 1, df['F1 micro'])
-    axes[2].set_xlabel('Epoch')
-    axes[2].set_ylabel('F1 micro')
-    axes[2].xaxis.set_major_locator(plt.MaxNLocator(integer=True))
-    axes[2].set_ylim(0, 1)
-
-    # save figure
-    plt.savefig(path, bbox_inches='tight', dpi=300)
-    plt.close()

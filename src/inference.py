@@ -15,7 +15,7 @@ device = torch.device('cuda' if torch.cuda.is_available() else 'cpu')
 print(f'Using device: {device}.')
 
 CONFIG = {'batch_size': 16,
-          'test_dir': 'D:/xBD_Bonn/test',
+          'test_dir': 'D:/Datasets/xBD_Bonn/test',
           'model': 'res/models/pre_trained.pth.tar'}
 
 
@@ -48,7 +48,7 @@ def inference(loader, model):
         start = time.time()
 
         # loop through batches
-        for batch, (X, y) in enumerate(loader):
+        for batch, (X, y, paths) in enumerate(loader):
             # load data to GPU as PyTorch tensors
             X, y = X.to(device=device), y.to(device=device)
             # measure data loading time
@@ -75,7 +75,7 @@ def inference(loader, model):
 
             # plot tiles
             Path.cwd().parent.joinpath('res', 'output').mkdir(exist_ok=True)
-            plot(y_arr, pred_arr, batch)
+            plot(y_arr, pred_arr, paths)
 
             # print status update every batch
             if batch % 1 == 0:
@@ -114,7 +114,7 @@ def main():
     test_loader = DataLoader(test_set, batch_size=CONFIG['batch_size'], shuffle=False, num_workers=0)
 
     # print status update
-    print(f'Train data length: {len(test_set)}')
+    print(f'Test data length: {len(test_set)}')
 
     # ------------------------------------------------------------------------------------------------------------------
     #   INFERENCE

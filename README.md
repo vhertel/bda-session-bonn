@@ -78,17 +78,15 @@ This repository hosts a U-Net model that has been pre-trained on the xBD dataset
 training, excluding volcanic events. The main purpose of this session is to utilize the pre-trained model for assessing
 building damage caused by volcanic eruptions. Subsequently, the model will be re-trained using a specific subset of the
 xBD dataset that comprises volcanic eruption events. The ultimate goal is to observe improved accuracy when performing
-inference with the re-trained model.
+inference with the re-trained model. The xBD dataset can be downloaded [here](https://xview2.org/).
 
 For doing so, follow the instructions:
 
-1. Download the [xBD data subset](https://dlrmax.dlr.de/get/be2d2cf5-7e7e-5e11-85fb-f632f5db20d3/) for training and
-   inference (link expires on 26/07/2023).
-2. Open `inference.py`, adjust the *CONFIG* parameters and run the script. Note the macro and micro F1 scores after the
+1. Open `inference.py`, adjust the *CONFIG* parameters and run the script. Note the macro and micro F1 scores after the
    process. Note: if memory errors occur, reduce the batch size.
-3. Open `train.py`, adjust the *CONFIG* parameters and run the script. During the training process, model weights are
+2. Open `train.py`, adjust the *CONFIG* parameters and run the script. During the training process, model weights are
    stored under `res/models/` in the format *epoch-f1_macro-loss.pth.tar*.
-4. Open `inference.py`, adjust the *CONFIG* parameters and run the script again. Make sure to select the model with
+3. Open `inference.py`, adjust the *CONFIG* parameters and run the script again. Make sure to select the model with
    highest macro F1 score of the training in step 3. Note and compare the macro and micro F1
    scores after the process.
 

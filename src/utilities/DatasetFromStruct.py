@@ -99,4 +99,4 @@ class DatasetFromStruct(Dataset):
         stack_img = torch.cat((pre_img, post_img), dim=0)
 
         # return images as Pytorch tensors with shape (1, bands, x, y)
-        return stack_img, cls_mask
+        return stack_img, cls_mask, str(self.img_pre_paths[i])
