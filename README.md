@@ -70,25 +70,21 @@ The model is trained on the xBD dataset, which is a valuable resource consisting
 post-disaster satellite imagery with corresponding damage labels on building level. By utilizing the xBD dataset,
 researchers and developers can advance the field of building damage assessment by leveraging machine learning techniques
 to automatically analyze satellite imagery and provide accurate and timely information about the extent of damage after
-natural disasters.
+natural disasters. The xBD dataset can be downloaded [here](https://xview2.org/) and must be prepared in tiles of
+256x256 pixels.
 
 ## Workflow
 
 This repository hosts a U-Net model that has been pre-trained on the xBD dataset. The model underwent 25 epochs of
-training, excluding volcanic events. The main purpose of this session is to utilize the pre-trained model for assessing
-building damage caused by volcanic eruptions. Subsequently, the model will be re-trained using a specific subset of the
-xBD dataset that comprises volcanic eruption events. The ultimate goal is to observe improved accuracy when performing
-inference with the re-trained model. The xBD dataset can be downloaded [here](https://xview2.org/).
+training, excluding volcanic events. The main purpose of this session is to train a model for assessing building damage.
 
 For doing so, follow the instructions:
 
-1. Open `inference.py`, adjust the *CONFIG* parameters and run the script. Note the macro and micro F1 scores after the
-   process. Note: if memory errors occur, reduce the batch size.
-2. Open `train.py`, adjust the *CONFIG* parameters and run the script. During the training process, model weights are
-   stored under `res/models/` in the format *epoch-f1_macro-loss.pth.tar*.
-3. Open `inference.py`, adjust the *CONFIG* parameters and run the script again. Make sure to select the model with
-   highest macro F1 score of the training in step 3. Note and compare the macro and micro F1
-   scores after the process.
+1. Open `train.py`, adjust the *CONFIG* parameters and run the script. During the training process, model weights are
+   stored under `res/models/` in the format *epoch-f1_macro-loss.pth.tar*. Note: if memory errors occur, reduce the
+   batch size.
+2. Open `inference.py`, adjust the *CONFIG* parameters and run the script. Make sure to select the model with
+   highest macro F1 score of the training in step 3. Note and compare the macro and micro F1 scores after the process.
 
 During the training process, the evaluation of the loss as well as macro and micro F1 scores are stored
 under `res/logs/`. Example tiles with the size of 256x256 pixels are plotted and stored under `res/output/` during

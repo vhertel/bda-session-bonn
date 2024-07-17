@@ -15,7 +15,7 @@ print(f'\nUsing PyTorch version {torch.__version__}.')
 device = torch.device('cuda' if torch.cuda.is_available() else 'cpu')
 print(f'Using device: {device}.')
 
-CONFIG = {'epochs': 1,
+CONFIG = {'epochs': 10,
           'learning_rate': 0.001,
           'batch_size': 32,
           'in_channels': 6,
